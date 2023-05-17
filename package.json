@@ -47,5 +47,9 @@
     "rollup": "^3.22.0",
     "shx": "^0.3.4",
     "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.7",
+    "remeda": "^1.14.0"
   }
 }
