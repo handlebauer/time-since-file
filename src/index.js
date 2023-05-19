@@ -20,10 +20,31 @@ const asDurationMap = /** @type {const} */ ({
 })
 
 /**
+ * @param {any} error
+ * @returns {null}
+ */
+const throwIfNotExists = error => {
+  /**
+   * 'ENOENT', the resource does not yet exist
+   */
+  if (error.code === 'ENOENT') {
+    return null
+  }
+
+  throw new Error(error)
+}
+
+/**
  * @param {string} path path to file
+ * @returns Times since creation and last modified (null if file doesn't exist)
  */
 export const timeSinceFile = async path => {
-  const stats = await stat(path)
+  const stats = await stat(path).catch(throwIfNotExists)
+
+  if (stats === null) {
+    return null
+  }
+
   const createdAt = stats.ctimeMs
   const updatedAt = stats.mtimeMs
 

@@ -44,3 +44,9 @@ test('Should return durations since file update', async t => {
   t.true(since.updated.months > ms / 1000 / 60 / 60 / 24 / 7 / 30)
   t.true(since.updated.years > ms / 1000 / 60 / 60 / 24 / 7 / 30 / 365)
 })
+
+test("Should return null if the file doesn't exist", async t => {
+  const since = await timeSinceFile('no')
+
+  t.is(since, null)
+})
